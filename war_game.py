@@ -1,6 +1,6 @@
-import random
+import random  # for shuffling the deck of cards
 from time import localtime,strftime
-
+import sys
 # import only system from os 
 from os import system, name 
 
@@ -32,7 +32,7 @@ def print_intro():
   
   print("\n###########################################################################################################################")
   print("#	Python implementation of the popular card war game.")
-  print("#       War is a card game, typically played by two players using a standard playing card deck[2] — and often played by children.")
+  print("#       War is a card game, typically played by two players using a standard playing card deck — and often played by children.")
   print("#	The deck is divided evenly among the players, giving each a down stack.") 
   print("#       In unison, each player reveals the top card of their deck—this is a battle —and" )
   print("#	The player with the higher card takes both of the cards played and moves them to their stack.")
@@ -66,9 +66,17 @@ def play_game():
     #wait for user's input before proceeding with the game
     print("The names of the players are Clinton and Trump.\n")
     continue_game = input("Do you want to proceed? Enter Y/N? ")
+    if continue_game.lower() == "n" or continue_game.lower() == "e":
+        exit_game()
+    
+    while continue_game.lower() != "n" and continue_game.lower() != "y" and continue_game.lower() != "e":
+        print('\nInvalid entry. Please enter Y/N or  E to Exit')
+        continue_game = input("\nDo you want to proceed? Enter Y/N? ")
+        if continue_game.lower() == "n" or continue_game.lower() == "e":
+            exit_game()
     
     #while loop starts here
-    while len(clinton_deck) != 0 and len(trump_deck) != 0 and (continue_game == 'y' or continue_game == 'Y'):
+    while len(clinton_deck) != 0 and len(trump_deck) != 0 and (continue_game.lower() == 'y'):
     #Prints the stats of the game
         print ("Round " + str(rounds))
         print('_____________________________________________________________________________________')
@@ -139,6 +147,9 @@ def play_game():
     
         rounds = rounds +1 #increament the round
         continue_game = "Y"
+#exit game        
+def exit_game():
+   sys.exit()
    
 #End of while Loop
 def print_game_summary():
